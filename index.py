@@ -9,21 +9,33 @@ from tkinter.messagebox import *
 master = Tk()
 master.title("MiniTextEditor")
 master.resizable(width=0, height=0)
+try:
+      #master.iconbitmap("minitexteditorico_v1.png")
+      #master.iconphoto(False, tk.PhotoImage(file="minitexteditorico_v1.png"))
+      #master.call(
+      #"wm", 
+      #"iconphoto", 
+      #master._w, 
+      #PhotoImage(file="minitexteditorico_v1.png")
+      #)
+      master.iconphoto(False, PhotoImage(file="minitexteditorico_v1.png"))
+except TclError:
+      showwarning("UI error ...", "The icon wasn't found.")
 #commands
 def openf():
-    filename = askopenfilename(title="Open a text file ...",filetypes=[('txt files','.txt'),('all files','.*')])
+    filename = askopenfilename(title="Open a text file ...",filetypes=[("txt files",".txt"),("all files",".*")])
     fichier = open(filename, "r")
     content = fichier.read()
     content = str(content)
     st.delete("1.0", END)
     st.insert(INSERT, content)
 def saveasf():
-    file = asksaveasfile(title="Save your file ...", mode='w', defaultextension=".txt")
+    file = asksaveasfile(title="Save your file ...", mode="w", defaultextension=".txt")
     text = str(st.get(1.0, END))
     file.write(text)
     file.close()
 def aboutmen():
-    showinfo("About", "About\n________________________\nMiniTextEditor\nby mibi88\n\nVersion : v.0.3\n\nLicense :\nThe Unlicense\n________________________\n Thank you for using\nthis text editor !")
+    showinfo("About", "About\n________________________\nMiniTextEditor\nby mibi88\n\nVersion : v.0.3.1\n\nLicense :\nThe Unlicense\n________________________\n Thank you for using\nthis text editor !")
 def helpmen():
     showinfo("Help", "Help\n________________________\n\n________________________\n")
 def newf():
@@ -86,7 +98,7 @@ helpmen.pack(side=RIGHT)
 #===
 st = ScrolledText.ScrolledText(master, undo="True", wrap="word", takefocus=0)
 #st = ScrolledText.ScrolledText(master, font = ("Liberation Serif", fontsiz))
-st.pack(expand='yes', side=BOTTOM)
+st.pack(expand="yes", side=BOTTOM)
 
 print( st.get(1.0, END) )
 master.mainloop()
